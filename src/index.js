@@ -1,15 +1,6 @@
 "use strict";
 
-const makeNullaryConstructor = () => {
-  return function() {
-    if (arguments.length > 0) {
-      throw new Error("Cannot provide arguments to a nullary constructor");
-    }
-    return constructor;
-  };
-};
-
-const makePatternConstructor = () => {
+const makeListConstructor = () => {
   const constructor = function(...fields) {
     if (!(this instanceof constructor)) {
       return new constructor(...fields);
@@ -27,13 +18,20 @@ const makePatternConstructor = () => {
   return constructor;
 };
 
+const makeObjectConstructor = () => {
+  throw new Error("not implemented yet");
+};
+
 const makeConstructor = (type, pattern) => {
   let constructor;
-  if (pattern.length === 0) {
-    constructor = makeNullaryConstructor();
+  if (Array.isArray(pattern)) {
+    constructor = makeListConstructor(pattern);
+  } else if (typeof pattern === 'object' && pattern) {
+    constructor = makeObjectConstructor(pattern);
   } else {
-    constructor = makePatternConstructor(pattern);
+    throw new Error("Value pattern must be an array or an object");
   }
+
   constructor.prototype = Object.create(type.prototype, {
     constructor: {
       value: constructor,

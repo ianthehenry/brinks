@@ -4,19 +4,6 @@ data = require 'brinks'
 they = it
 
 describe "data", ->
-  describe "nullary constructors", ->
-    Unit = data ->
-      Unit: []
-
-    they "are singletons", ->
-      assert Unit.Unit() == Unit.Unit
-
-    they "cannot take arguments", ->
-      assert.throws -> Unit.Unit(1)
-
-    they "are instances of themselves", ->
-      assert Unit.Unit instanceof Unit.Unit
-
   NumList = data ->
     Nil: []
     Cons: [Number, this]
@@ -29,17 +16,16 @@ describe "data", ->
 
   describe "value constructors", ->
     they "can be invoked with or without the new keyword", ->
-      assert new NumList.Nil() == NumList.Nil()
-      assert new NumList.Cons(10).get(0) == NumList.Cons(10).get(0)
+      assert (new NumList.Cons(10, NumList.Nil())).get(0) == NumList.Cons(10, NumList.Nil()).get(0)
 
   describe "values", ->
-    list = NumList.Cons(10, NumList.Cons(20, NumList.Nil))
+    list = NumList.Cons(10, NumList.Cons(20, NumList.Nil()))
 
     they "are instances of types", ->
-      assert NumList.Cons(10, NumList.Nil) instanceof NumList
+      assert NumList.Cons(10, NumList.Nil()) instanceof NumList
 
     they "are instances of value constructors", ->
-      assert NumList.Cons(10, NumList.Nil) instanceof NumList.Cons
+      assert NumList.Cons(10, NumList.Nil()) instanceof NumList.Cons
 
     they "have field-selecting functions", ->
       assert list.get(0) == 10
@@ -48,18 +34,7 @@ describe "data", ->
       [head, tail] = list.get()
       assert head == 10
       assert tail.get(0) == 20
-      assert tail.get(1) == NumList.Nil
-    # it "are field-selecting functions", ->
-    #   assert list(0) == 10
-
-    # it "are functions that return all values when invoked with no arguments", ->
-    #   [head, tail] = list()
-    #   assert head == 10
-    #   assert tail(0) == 20
-    #   assert tail(1) == NumList.Nil
-
-  # describe "patterns", ->
-  #   NumList.Cons.pattern()
+      assert tail.get(1) instanceof NumList.Nil
 
   describe "type constructors", ->
     List = data (a) ->
