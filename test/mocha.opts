@@ -1,3 +1,2 @@
---compilers coffee:coffee-script/register
---recursive
+--compilers coffee:coffee-script/register,js:babel/register
 --reporter dot

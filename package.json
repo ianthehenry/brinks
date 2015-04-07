@@ -1,24 +1,20 @@
 {
   "name": "brinks",
   "description": "Algebraic data types",
-  "keywords": ["immutable", "functional", "enum", "algebraic", "data", "types"],
+  "keywords": ["immutable", "adts", "adt", "functional", "enum", "algebraic", "data", "types"],
   "version": "0.0.1",
   "author": "Ian Henry <ianthehenry@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build-browser-min": "mkdir browser; browserify src/index.coffee --extension .coffee --standalone Brinks -t coffeeify -t uglifyify -o browser/brinks.min.js",
-    "build-browser":     "mkdir browser; browserify src/index.coffee --extension .coffee --standalone Brinks -t coffeeify -o browser/brinks.js",
-    "build-npm": "coffee -b -c -o lib/ --no-header src/",
-    "build": "npm run build-browser && npm run build-browser-min && npm run build-npm",
-    "test": "mocha"
+    "test": "eslint src/ && mocha"
   },
   "devDependencies": {
-    "browserify": "^8.1.0",
-    "chai": "^1.10.0",
-    "coffee-script": "^1.8.0",
-    "coffeeify": "^1.0.0",
-    "mocha": "^2.1.0",
-    "uglifyify": "^2.6.0"
+    "babel": "5.0.9",
+    "chai": "2.2.0",
+    "coffee-script": "1.9.1",
+    "mocha": "2.2.1",
+    "babel-eslint": "2.0.2",
+    "eslint": "0.18.0"
   },
   "repository": {
     "type": "git",

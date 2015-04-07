@@ -1,6 +1,6 @@
-brinks = require 'brinks/index'
+brinks = require 'brinks'
 { assert } = require 'chai'
 
 describe "brinks", ->
-  it "should be excited", ->
+  it "is excited", ->
     assert brinks == "brinks!"
