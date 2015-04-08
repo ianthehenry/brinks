@@ -1,9 +1,16 @@
 "use strict";
 
-const makeListConstructor = () => {
+const matchbook = require('matchbook');
+
+const makeListConstructor = (pattern) => {
+  const matches = matchbook.compile(pattern);
   const constructor = function(...fields) {
     if (!(this instanceof constructor)) {
       return new constructor(...fields);
+    }
+
+    if (!matches(fields)) {
+      throw new Error("Type error!");
     }
 
     this.get = function(i) {

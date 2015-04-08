@@ -16,6 +16,9 @@
     "babel-eslint": "2.0.2",
     "eslint": "0.18.0"
   },
+  "dependencies": {
+    "matchbook": "1.0.1"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/ianthehenry/brinks.git"
